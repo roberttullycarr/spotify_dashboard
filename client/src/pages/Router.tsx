@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Path from './paths';
+import Profile from './profile';
 
 const Home = React.lazy(
   () => import('./home' /* webpackChunkName: "home", webpackPreload: true */),
@@ -24,6 +25,9 @@ const Router = () => (
       </Route>
       <Route exact path={Path.Callback}>
         <Callback />
+      </Route>
+      <Route exact path={'/profile'}>
+        <Profile />
       </Route>
       <Route>
         <NotFound />

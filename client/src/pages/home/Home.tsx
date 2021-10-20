@@ -1,16 +1,12 @@
 import * as React from 'react';
 import Helmet from 'react-helmet';
-import styled from 'styled-components';
-
+import { FC } from 'react';
 import Navigation from 'components/Navigation';
-import { useLocation } from 'react-router';
 import { useState } from 'react';
-import Profile from '../../components/Profile';
+import { Section } from '../../components/section';
 
-function Home() {
-  const location = useLocation();
-
-  const [token, setToken] = useState<string>(localStorage.token);
+const Home: FC = () => {
+  const [token] = useState<string>(localStorage.access);
   const [page, setPage] = useState<string>('/');
 
   return (
@@ -19,30 +15,18 @@ function Home() {
         <title>Home</title>
         <meta name="description" content="The home page" />
       </Helmet>
-      <Navigation setPage={setPage} />
-      {page === '/' ? (
-        <Section>
-          <h1>
-            Hello{' '}
-            <span role="img" aria-label="wave">
-              👋
-            </span>
-          </h1>
-          <p>Let's build some cool sh*t</p>
-        </Section>
-      ) : (
-        <Section>
-          <Profile />
-        </Section>
-      )}
+      <Navigation />
+      <Section>
+        <h1>
+          Hello{' '}
+          <span role="img" aria-label="wave">
+            👋
+          </span>
+        </h1>
+        <p>Let's build some cool sh*t</p>
+      </Section>
     </>
   );
-}
-
-const Section = styled.section`
-  margin: 0 auto;
-  width: 100%;
-  padding: 0 24px;
-`;
+};
 
 export default Home;

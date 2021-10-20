@@ -7,25 +7,17 @@ interface CallbackProps {}
 
 function Callback(props: CallbackProps) {
   const location: Location = useLocation();
-  const clientId = '5f104e937ab44be8a012262b016ddd3c';
-  const clientSecret = 'd04520ebc4954303a4a7e4ee60800ad9';
-  const history = useHistory();
   const code = new URLSearchParams(location.search).get('code');
+  const history = useHistory();
 
   const fetchTokenStart = async () => {
-    const res = await fetch('https://accounts.spotify.com/api/token', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: 'Basic ' + btoa(clientId + ':' + clientSecret),
-      },
-      body: 'grant_type=client_credentials',
-    });
+    const res = await fetch(`http://localhost:8080/callback/${code}`);
     const data = await res.json();
-    localStorage.setItem('token', data.access_token);
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    data.access_token ? history.push('/') : null;
+    localStorage.setItem('access', data.access_token);
+    localStorage.setItem('refresh', data.refresh_token);
+    history.push('/');
   };
+
   React.useEffect(() => {
     // debugger;
 

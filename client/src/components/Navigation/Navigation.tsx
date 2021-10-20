@@ -3,11 +3,7 @@ import SpotifyLogo from 'assets/images/spotify_logo_green.png';
 import { useHistory } from 'react-router';
 import React from 'react';
 
-interface Props {
-  setPage(arg: string): void;
-}
-
-const Navigation: React.FC<Props> = ({ setPage }) => {
+const Navigation: React.FC = () => {
   const history = useHistory();
   return (
     <Nav>
@@ -16,8 +12,8 @@ const Navigation: React.FC<Props> = ({ setPage }) => {
         <NavTitle>Spotify Dashboard</NavTitle>
       </NavSection>
       <NavSection>
-        <NavBtn onClick={() => setPage('/')}>Home</NavBtn>
-        <NavBtn onClick={() => setPage('/profile')}>Profile</NavBtn>
+        <NavBtn onClick={() => history.push('/')}>Home</NavBtn>
+        <NavBtn onClick={() => history.push('/profile')}>Profile</NavBtn>
       </NavSection>
     </Nav>
   );
@@ -30,6 +26,7 @@ const Nav = styled.nav`
   align-items: center;
   justify-content: space-between;
   background-color: ${({ theme }) => theme.palette.neutral02};
+  margin-bottom: 40px;
 `;
 
 const Logo = styled.img`

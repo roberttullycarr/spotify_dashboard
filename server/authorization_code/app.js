@@ -44,9 +44,9 @@ app.get('/login', function(req, res) {
   );
 });
 
-app.get('/callback', function(req, res) {
-  var code = req.query.code || null;
-  var authOptions = {
+app.get('/callback/:code', function(req, res) {
+  const code = req.params.code || null;
+  const authOptions = {
     url: 'https://accounts.spotify.com/api/token',
     form: {
       code: code,
@@ -55,8 +55,8 @@ app.get('/callback', function(req, res) {
     },
     headers: {
       Authorization:
-        'Basic ' +
-        new Buffer(client_id + ':' + client_secret).toString('base64'),
+          'Basic ' +
+          new Buffer(client_id + ':' + client_secret).toString('base64'),
     },
     json: true,
   };

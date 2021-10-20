@@ -10,7 +10,7 @@
     "server"
   ],
   "scripts": {
-    "start:server": "cd server/authorization_code && node app",
+    "start:server": "cd server/authorization_code && DEBUG=express:* node app",
     "start:client": "cd client && yarn start"
   }
 }
