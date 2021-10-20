@@ -2,6 +2,7 @@ interface Palette {
   global01: string;
   neutral01: string;
   neutral02: string;
+  neutral03: string;
 }
 
 interface Fonts {}
@@ -23,6 +24,7 @@ const theme: Theme = {
     global01: '#1DB954',
     neutral01: '#FFFFFF',
     neutral02: '#191414',
+    neutral03: '#FBFBFB',
   },
   fonts: {},
   breakpoints: {
