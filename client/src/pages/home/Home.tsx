@@ -18,7 +18,7 @@ const ContentRow = styled.div`
 
 const Home: FC = () => {
   const [token] = useState<string>(localStorage.access);
-  const [page, setPage] = useState<string>('/');
+  const [reFetch, setReFetch] = useState<string>('');
 
   return (
     <>
@@ -29,11 +29,11 @@ const Home: FC = () => {
       <Navigation />
       <Section>
         <ContentRow>
-          <SearchResults />
+          <SearchResults setReFetch={setReFetch} />
         </ContentRow>
         <ContentRow>
           <Player />
-          <Favorites />
+          <Favorites reFetch={reFetch} setReFetch={setReFetch} />
         </ContentRow>
       </Section>
     </>

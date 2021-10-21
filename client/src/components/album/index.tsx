@@ -16,6 +16,7 @@ const AlbumMain = styled.div`
   :hover {
     div {
       display: flex !important;
+      cursor: pointer;
     }
   }
 `;
@@ -50,9 +51,10 @@ const LikeMain = styled.div`
 
 interface Props {
   album: any;
+  setReFetch: any;
 }
 
-const Album: FC<Props> = ({ album }) => {
+const Album: FC<Props> = ({ album, setReFetch }) => {
   const favoriteAlbum = async (id: string) => {
     const data = { ids: [id] };
     const config = {
@@ -66,7 +68,7 @@ const Album: FC<Props> = ({ album }) => {
       data,
       config,
     );
-    console.log(res);
+    setReFetch('favorite');
   };
 
   return (

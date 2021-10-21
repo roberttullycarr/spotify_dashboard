@@ -11,9 +11,12 @@ import {
 } from './styled';
 import Masonry from 'react-masonry-css';
 import Album from '../album';
-import axios from 'axios';
 
-const SearchResults: FC = () => {
+interface Props {
+  setReFetch: any;
+}
+
+const SearchResults: FC<Props> = ({ setReFetch }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [albums, setAlbums] = useState<any>([]);
 
@@ -51,7 +54,9 @@ const SearchResults: FC = () => {
         columnClassName="my-masonry-grid_column"
       >
         {albums.length > 0
-          ? albums.map((album: any) => <Album key={album.id} album={album} />)
+          ? albums.map((album: any) => (
+              <Album key={album.id} album={album} setReFetch={setReFetch} />
+            ))
           : null}
       </Masonry>
     </SRMain>
