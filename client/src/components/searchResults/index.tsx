@@ -11,6 +11,7 @@ import {
 } from './styled';
 import Masonry from 'react-masonry-css';
 import Album from '../album';
+import axios from 'axios';
 
 const SearchResults: FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -30,7 +31,8 @@ const SearchResults: FC = () => {
     const data = await res.json();
     setAlbums(data.albums.items);
   };
-  console.log(albums);
+
+  console.log(typeof localStorage.refresh);
   return (
     <SRMain>
       <SearchMain>

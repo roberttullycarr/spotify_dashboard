@@ -2,6 +2,7 @@ import { FC } from 'react';
 import * as React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as Heart } from '../../assets/svg/heart_icon.svg';
+import axios from 'axios';
 
 const AlbumMain = styled.div`
   position: relative;
@@ -52,10 +53,26 @@ interface Props {
 }
 
 const Album: FC<Props> = ({ album }) => {
+  const favoriteAlbum = async (id: string) => {
+    const data = { ids: [id] };
+    const config = {
+      headers: {
+        Authorization: `Bearer ${localStorage.access}`,
+        Content_type: 'application/json',
+      },
+    };
+    const res = await axios.put(
+      'http://localhost:8080/v1/me/albums',
+      data,
+      config,
+    );
+    console.log(res);
+  };
+
   return (
     <AlbumMain>
       <AlbumCover src={album.images[1].url} />
-      <LikeMain>
+      <LikeMain onClick={() => favoriteAlbum(album.id)}>
         <Heart />
       </LikeMain>
     </AlbumMain>
