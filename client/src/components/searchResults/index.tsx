@@ -10,6 +10,7 @@ import {
   SRMain,
 } from './styled';
 import Masonry from 'react-masonry-css';
+import Album from '../album';
 
 const SearchResults: FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -43,12 +44,12 @@ const SearchResults: FC = () => {
         </Search>
       </SearchMain>
       <Masonry
-        breakpointCols={3}
+        breakpointCols={5}
         className="my-masonry-grid"
         columnClassName="my-masonry-grid_column"
       >
         {albums.length > 0
-          ? albums.map((album: any) => <p key={album.id}>{album.name}</p>)
+          ? albums.map((album: any) => <Album key={album.id} album={album} />)
           : null}
       </Masonry>
     </SRMain>

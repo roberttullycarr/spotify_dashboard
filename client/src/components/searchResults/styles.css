@@ -3,8 +3,8 @@
   display: -ms-flexbox; /* Not needed if autoprefixing */
   display: flex;
   justify-content: center;
-  margin-top: 20px;
-  width: 100%;
+  margin-top: 40px;
+  width: 90%;
 }
 .my-masonry-grid_column {
   display: flex;
