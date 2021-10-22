@@ -10,9 +10,12 @@ const FavoritesMain = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  position: relative;
 `;
 
 const FavBox = styled.div`
+  position: absolute;
+  bottom: 0;
   width: 100%;
   height: 298px;
   overflow-y: scroll;
@@ -21,6 +24,7 @@ const FavBox = styled.div`
 const FavTitle = styled.p`
   font-weight: 400;
   font-size: 18px;
+  margin: 0 !important;
 `;
 
 interface Props {
