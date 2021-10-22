@@ -16,6 +16,10 @@ const ContentRow = styled.div`
   justify-content: space-around;
 `;
 
+const SecondRow = styled(ContentRow)`
+  width: 70% !important;
+`;
+
 const Home: FC = () => {
   const [token] = useState<string>(localStorage.access);
   const [reFetch, setReFetch] = useState<string>('');
@@ -31,10 +35,10 @@ const Home: FC = () => {
         <ContentRow>
           <SearchResults setReFetch={setReFetch} />
         </ContentRow>
-        <ContentRow>
+        <SecondRow>
           <Player />
           <Favorites reFetch={reFetch} setReFetch={setReFetch} />
-        </ContentRow>
+        </SecondRow>
       </Section>
     </>
   );
