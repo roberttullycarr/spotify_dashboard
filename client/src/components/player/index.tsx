@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { ReactComponent as Skip } from '../../assets/svg/skip_button.svg';
 import { ReactComponent as Play } from '../../assets/svg/play_button.svg';
 import { ReactComponent as Pause } from '../../assets/svg/pause_button.svg';
+import { useQuery, UseQueryResult } from 'react-query';
+import axios from 'axios';
 
 const PlayerMain = styled.div`
   position: relative;
@@ -90,7 +92,7 @@ const BackBtn = styled(ControlBtn)`
 const SongDetails = styled.p`
   color: white;
   margin: 0 !important;
-  overflow: hidden;
+  white-space: nowrap;
   opacity: 75%;
 `;
 
@@ -104,34 +106,45 @@ const SongName = styled(SongDetails)`
 
 const Player: FC = () => {
   const [play, setPlay] = useState<boolean>(false);
+  const { status, error, data }: UseQueryResult<any> = useQuery<any>(
+    ['playing'],
+    async () => {
+      const res = await fetch('https://api.spotify.com/v1/me/player', {
+        headers: { Authorization: `Bearer ${localStorage.getItem('access')}` },
+      });
+      const data = await res.json();
+      return data.item;
+    },
+  );
+
+  const playHandler = () => setPlay(!play);
+
   return (
     <PlayerMain>
       <PTitle>Currently Playing</PTitle>
-      <ControlMain>
-        <PAlbum
-          src={
-            'https://i.scdn.co/image/ab67616d00001e020a1dfe2893823501b045319d'
-          }
-        />
-        <PDataMain>
-          <SongInfo>
-            <ArtistAlbumName>Less Than Jake</ArtistAlbumName>
-            <SongName>Hello, Rockview</SongName>
-            <ArtistAlbumName>Rockview</ArtistAlbumName>
-          </SongInfo>
-          <Controls>
-            <BackBtn>
-              <Skip />
-            </BackBtn>
-            <ControlBtn onClick={() => setPlay(!play)}>
-              {play ? <Play /> : <Pause />}
-            </ControlBtn>
-            <ControlBtn>
-              <Skip />
-            </ControlBtn>
-          </Controls>
-        </PDataMain>
-      </ControlMain>
+      {status === 'success' && (
+        <ControlMain>
+          <PAlbum src={data.album.images[1].url} />
+          <PDataMain>
+            <SongInfo>
+              <ArtistAlbumName>{data.album.artists[0].name}</ArtistAlbumName>
+              <SongName>{data.name}</SongName>
+              <ArtistAlbumName>{data.album.name}</ArtistAlbumName>
+            </SongInfo>
+            <Controls>
+              <BackBtn>
+                <Skip />
+              </BackBtn>
+              <ControlBtn onClick={() => playHandler}>
+                {play ? <Play /> : <Pause />}
+              </ControlBtn>
+              <ControlBtn>
+                <Skip />
+              </ControlBtn>
+            </Controls>
+          </PDataMain>
+        </ControlMain>
+      )}
     </PlayerMain>
   );
 };

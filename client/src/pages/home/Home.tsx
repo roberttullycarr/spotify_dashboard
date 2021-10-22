@@ -23,7 +23,6 @@ const SecondRow = styled(ContentRow)`
 const Home: FC = () => {
   const [token] = useState<string>(localStorage.access);
   const [reFetch, setReFetch] = useState<string>('');
-
   return (
     <>
       <Helmet>
